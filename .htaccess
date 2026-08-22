@@ -1,0 +1,65 @@
+Options -MultiViews
+DirectoryIndex index.html
+RewriteEngine On
+
+# Current product filenames -> concise canonical product slugs.
+RewriteRule ^shop/medicine/alprax-alprazolam-2-mg-scm(?:\.html)?$ /shop/medicine/alprazolam-alprax-2mg [R=301,L,NE]
+RewriteRule ^shop/medicine/alprazolam-alprax-1-mg-scm(?:\.html)?$ /shop/medicine/alprazolam-alprax-1mg [R=301,L,NE]
+RewriteRule ^shop/medicine/bromazepam-version-4(?:\.html)?$ /shop/medicine/bromazepam [R=301,L,NE]
+RewriteRule ^shop/medicine/diazepam-martin-dow-10mg-scm(?:\.html)?$ /shop/medicine/diazepam-martin-dow-10mg [R=301,L,NE]
+RewriteRule ^shop/medicine/easium-diazepam-10mg-scm(?:\.html)?$ /shop/medicine/diazepam-easium-10mg [R=301,L,NE]
+RewriteRule ^shop/medicine/lorazepam-ativan-2-mg-s(?:\.html)?$ /shop/medicine/lorazepam-ativan-2mg [R=301,L,NE]
+RewriteRule ^shop/medicine/midolam-midazolam-7-5-mg-scm(?:\.html)?$ /shop/medicine/midazolam-midolam-7-5mg [R=301,L,NE]
+RewriteRule ^shop/medicine/modafinil-version-4(?:\.html)?$ /shop/medicine/modafinil [R=301,L,NE]
+RewriteRule ^shop/medicine/noctin-nitrazepam-5-mg-scm(?:\.html)?$ /shop/medicine/nitrazepam-noctin-5mg [R=301,L,NE]
+RewriteRule ^shop/medicine/pase-clonazepam-2mg-scm(?:\.html)?$ /shop/medicine/clonazepam-pase-2mg [R=301,L,NE]
+RewriteRule ^shop/medicine/pregabalin-pregacare-nt-s(?:\.html)?$ /shop/medicine/pregabalin-pregacare-nt [R=301,L,NE]
+RewriteRule ^shop/medicine/rivotril-clonazepam-2mg-scm(?:\.html)?$ /shop/medicine/clonazepam-rivotril-2mg [R=301,L,NE]
+RewriteRule ^shop/medicine/rlam-alprazolam-1-mg-scm(?:\.html)?$ /shop/medicine/alprazolam-rlam-1mg [R=301,L,NE]
+RewriteRule ^shop/medicine/sedil-diazepam-5-mg-scm(?:\.html)?$ /shop/medicine/diazepam-sedil-5mg [R=301,L,NE]
+RewriteRule ^shop/medicine/zopiclone-7-5mg-version-4(?:\.html)?$ /shop/medicine/zopiclone-7-5mg [R=301,L,NE]
+
+# Product URLs from the previous sitemap -> new /shop/medicine/ structure.
+RewriteRule ^shop/diazepam-sedil-5mg/?$ /shop/medicine/diazepam-sedil-5mg [R=301,L,NE]
+RewriteRule ^shop/diazepam-martin-dows-10mg/?$ /shop/medicine/diazepam-martin-dow-10mg [R=301,L,NE]
+RewriteRule ^shop/diazepam-easium-10mg/?$ /shop/medicine/diazepam-easium-10mg [R=301,L,NE]
+RewriteRule ^shop/alprazolam-alprax-2-mg/?$ /shop/medicine/alprazolam-alprax-2mg [R=301,L,NE]
+RewriteRule ^shop/alprazolam-rlam-1mg/?$ /shop/medicine/alprazolam-rlam-1mg [R=301,L,NE]
+RewriteRule ^shop/alprazolam-alprax-1-mg/?$ /shop/medicine/alprazolam-alprax-1mg [R=301,L,NE]
+RewriteRule ^shop/nitrazepam-noctin-5mg/?$ /shop/medicine/nitrazepam-noctin-5mg [R=301,L,NE]
+RewriteRule ^shop/midazolam-midolam-75-mg/?$ /shop/medicine/midazolam-midolam-7-5mg [R=301,L,NE]
+RewriteRule ^shop/clonazepam-rivotril-2-mg/?$ /shop/medicine/clonazepam-rivotril-2mg [R=301,L,NE]
+RewriteRule ^shop/pregacare-nt-pregabalin/?$ /shop/medicine/pregabalin-pregacare-nt [R=301,L,NE]
+RewriteRule ^shop/ativan-lorazepam-2-mg/?$ /shop/medicine/lorazepam-ativan-2mg [R=301,L,NE]
+RewriteRule ^shop/zopiclone-7-5mg/?$ /shop/medicine/zopiclone-7-5mg [R=301,L,NE]
+RewriteRule ^shop/modafinil/?$ /shop/medicine/modafinil [R=301,L,NE]
+RewriteRule ^shop/bromazepam/?$ /shop/medicine/bromazepam [R=301,L,NE]
+
+# Legacy article, landing and location routes.
+RewriteRule ^blog/a-safe-way-to-buy-prescription-medicines-online-in-the-uk/?$ /blog/post/a-safe-way-to-buy-prescription-medicines-online-in-the-uk-scm [R=301,L,NE]
+RewriteRule ^blog/a-clear-guide-to-anxiety-and-sleep-medication-for-uk-patients/?$ /blog/post/a-clear-guide-to-anxiety-and-sleep-medication-for-uk-patients [R=301,L,NE]
+RewriteRule ^blog/safe-reliable-pharmacy-service-scotland/?$ /blog/post/safe-and-reliable-pharmacy-scotia-meds [R=301,L,NE]
+RewriteRule ^blog/how-long-can-you-take-sleeping-pills-safely/?$ /blog/post/how-long-can-you-take-sleeping-pills-safely [R=301,L,NE]
+RewriteRule ^blog/signs-of-adhd-in-adults/?$ /blog/post/10-signs-of-adhd-in-adults [R=301,L,NE]
+RewriteRule ^blog/panic-disorder-symptoms-causes-and-treatment/?$ /blog/post/panic-disorder-symptoms-causes-treatment [R=301,L,NE]
+RewriteRule ^blog/neuropathy-or-nerve-pain-causes-symptoms-and-treatment/?$ /blog/post/neuropathy-or-nerve-pain-causes-symptoms-treatment [R=301,L,NE]
+RewriteRule ^blog/buy-medicine-without-prescription-uk/?$ /blog/post/how-to-buy-medicine-without-prescription-online-in-the-uk [R=301,L,NE]
+RewriteRule ^blog/nhs-gphc-law-for-online-pharmacies-uk/?$ /blog/post/nhs-gphc-law-for-online-pharmacies-in-the-united-kingdom-scotiameds [R=301,L,NE]
+RewriteRule ^anxiety-medicines-in-the-united-kingdom/?$ /landing-page/anxiety-medicines-in-the-united-kingdom-scotiameds [R=301,L,NE]
+RewriteRule ^sleeping-pills-in-the-united-kingdom/?$ /landing-page/sleeping-pills-in-the-united-kingdom-scotiameds [R=301,L,NE]
+RewriteRule ^service-area/best-online-drugstore-in-scotland/?$ /service-area/best-online-drugstore-in-scotland-scotiameds-uk [R=301,L,NE]
+RewriteRule ^service-area/trusted-online-drugstore-in-bo-ness/?$ /service-area/best-online-drugstore-in-boness [R=301,L,NE]
+RewriteRule ^service-area/reliable-online-pharmacy-in-perth/?$ /service-area/best-online-drugstore-in-perth [R=301,L,NE]
+RewriteRule ^service-area/reliable-online-pharmacy-in-dunfermline/?$ /service-area/reliable-online-drugstore-in-dunfermline [R=301,L,NE]
+RewriteRule ^service-area/trusted-online-medication-store-in-inverness/?$ /service-area/trusted-online-drugstore-in-inverness [R=301,L,NE]
+
+# Canonicalise explicit index and .html requests.
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[?\s]) [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L,NE]
+RewriteCond %{THE_REQUEST} \s/+(.+?)\.html(?:[?\s]) [NC]
+RewriteRule ^(.+)\.html$ /$1 [R=301,L,NE]
+
+# Internally serve extensionless URLs from their HTML files.
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+?)/?$ $1.html [END]
