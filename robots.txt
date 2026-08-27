@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /google-apps-script/
+
+Sitemap: https://www.scotiameds.co.uk/sitemap.xml
