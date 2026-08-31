@@ -54,7 +54,7 @@ function addBasket(){
  if(found)found.quantity=Number(found.quantity||1)+1;else cart.push({key:key,slug:productSlug,name:productName,type:value.variant[0],pieces:value.pack[0],price:value.pack[1],quantity:1});
  saveCart();openCart();if(typeof window.gtag==='function')window.gtag('event','add_to_cart',{currency:'GBP',value:value.pack[1],items:[{item_id:productSlug,item_name:productName,item_variant:value.variant[0],price:value.pack[1],quantity:1}]})
 }
-function orderMessage(order,channel){return 'Hello ScotiaMeds, my request reference is '+order.orderId+'.\n\n'+order.items.map(function(item){return '• '+item.name+' — '+item.type+', '+item.pieces+' pcs × '+item.quantity+' ('+money(item.price*item.quantity)+')'}).join('\n')+'\n\nMedicine total: '+money(order.subtotal)+'\nPostage: '+money(order.postage)+'\nTotal: '+money(order.total)+'\n\nPlease confirm availability and next steps.'}
+function orderMessage(order,channel){return 'Hello ScotiaMeds, my order reference is '+order.orderId+'.\n\n'+order.items.map(function(item){return '• '+item.name+' — '+item.type+', '+item.pieces+' pcs × '+item.quantity+' ('+money(item.price*item.quantity)+')'}).join('\n')+'\n\nMedicine total: '+money(order.subtotal)+'\nPostage: '+money(order.postage)+'\nTotal: '+money(order.total)+'\n\nPlease confirm availability and next steps.'}
 function newOrder(channel){
  var postageSelect=document.querySelector('#commerce-postage'),postage=Number(postageSelect?postageSelect.value:12),subtotal=cart.reduce(function(sum,item){return sum+Number(item.price)*Number(item.quantity||1)},0);
  return {orderId:'SM-'+Date.now().toString(36).toUpperCase()+'-'+Math.random().toString(36).slice(2,6).toUpperCase(),timestamp:new Date().toISOString(),channel:channel,status:'New',items:cart,subtotal:subtotal,postage:postage,total:subtotal+postage,currency:'GBP',pageUrl:location.href,utmSource:new URLSearchParams(location.search).get('utm_source')||'',utmMedium:new URLSearchParams(location.search).get('utm_medium')||'',utmCampaign:new URLSearchParams(location.search).get('utm_campaign')||''}
@@ -62,14 +62,14 @@ function newOrder(channel){
 async function checkout(channel){
  var status=document.querySelector('[data-checkout-status]');if(!cart.length)return;
  if(!DATA_API_URL){status.textContent='Checkout storage is not configured yet. Add the Apps Script /exec URL in assets/js/config.js.';return}
- var order=newOrder(channel);status.textContent='Saving your request securely…';document.querySelectorAll('[data-checkout]').forEach(function(button){button.disabled=true});
+ var order=newOrder(channel);status.textContent='Saving your order securely…';document.querySelectorAll('[data-checkout]').forEach(function(button){button.disabled=true});
  try{
   var controller=new AbortController(),timer=setTimeout(function(){controller.abort()},12000);
   var response=await fetch(DATA_API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'createOrder',order:order,userAgent:navigator.userAgent}),signal:controller.signal});clearTimeout(timer);
-  var result=await response.json();if(!response.ok||!result.ok)throw new Error(result.error||'Could not save request');
+  var result=await response.json();if(!response.ok||!result.ok)throw new Error(result.error||'Could not save order');
   localStorage.removeItem('scotiaCart');cart=[];if(typeof window.gtag==='function')window.gtag('event','purchase',{transaction_id:order.orderId,currency:'GBP',value:order.total,shipping:order.postage,items:order.items.map(function(item){return {item_id:item.slug||item.key,item_name:item.name,item_variant:item.type,price:item.price,quantity:item.quantity}})});
   var target=channel==='whatsapp'?whatsapp+'?text='+encodeURIComponent(orderMessage(order,channel)):telegram;location.href=target
- }catch(error){status.textContent='We could not save your request. Please try again.';document.querySelectorAll('[data-checkout]').forEach(function(button){button.disabled=false})}
+ }catch(error){status.textContent='We could not save your order. Please try again.';document.querySelectorAll('[data-checkout]').forEach(function(button){button.disabled=false})}
 }
 function renderCart(){
  var items=document.querySelector('[data-commerce-items]'),footer=document.querySelector('[data-commerce-footer]');if(!items||!footer)return;
@@ -87,7 +87,7 @@ function init(){
  document.querySelectorAll('.spec-list div').forEach(function(row){if((row.querySelector('dt')||{}).textContent==='Prescription')row.remove()});
  var actions=document.querySelector('.page-actions');
  if(actions&&!document.querySelector('[data-commerce-open]')){var basket=document.createElement('button');basket.type='button';basket.className='commerce-basket';basket.setAttribute('data-commerce-open','');basket.innerHTML='Basket <b data-commerce-count>0</b>';actions.insertBefore(basket,actions.firstChild)}
- if(!document.querySelector('.commerce-drawer'))document.body.insertAdjacentHTML('beforeend','<div class="commerce-overlay"></div><aside class="commerce-drawer" aria-label="Medicine basket"><div class="commerce-head"><div><p>YOUR REQUEST</p><h2>Medicine basket</h2></div><button type="button" data-commerce-close aria-label="Close basket">×</button></div><div class="commerce-items" data-commerce-items></div><div class="commerce-footer" data-commerce-footer></div></aside>');
+ if(!document.querySelector('.commerce-drawer'))document.body.insertAdjacentHTML('beforeend','<div class="commerce-overlay"></div><aside class="commerce-drawer" aria-label="Medicine basket"><div class="commerce-head"><div><p>YOUR ORDER</p><h2>Medicine basket</h2></div><button type="button" data-commerce-close aria-label="Close basket">×</button></div><div class="commerce-items" data-commerce-items></div><div class="commerce-footer" data-commerce-footer></div></aside>');
  document.querySelector('[data-commerce-open]').addEventListener('click',openCart);document.querySelector('[data-commerce-close]').addEventListener('click',closeCart);document.querySelector('.commerce-overlay').addEventListener('click',closeCart);
  renderCart();updateCount();
  var summary=document.querySelector('.product-summary');if(!summary)return;
