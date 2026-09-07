@@ -14,3 +14,4 @@ async function saveHomeCheckout(event,link){event.preventDefault();var status=do
 enhanceHomeCart();var cartFooter=document.querySelector('#cart-footer');if(cartFooter)new MutationObserver(enhanceHomeCart).observe(cartFooter,{childList:true,subtree:true});
 document.addEventListener('click',function(event){var link=event.target.closest('.checkout-buttons a');if(link)saveHomeCheckout(event,link)});
 })();
+(function(){document.querySelectorAll('.nav-categories>button').forEach(function(button){button.addEventListener('click',function(){var parent=button.closest('.nav-categories'),open=parent.classList.toggle('open');button.setAttribute('aria-expanded',String(open))})})})();
