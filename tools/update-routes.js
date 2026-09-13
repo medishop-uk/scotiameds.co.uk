@@ -22,10 +22,10 @@ rules=rules.replace('RewriteRule ^(.+)\\.html$ /$1 [R=301,L,NE]','RewriteRule ^(
 fs.writeFileSync(htaccessFile,rules.trimEnd()+'\n','utf8');
 
 const sitemapFile=path.join(root,'sitemap.xml');
-let sitemap=fs.readFileSync(sitemapFile,'utf8').replace(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g,'<lastmod>2026-09-07</lastmod>');
+let sitemap=fs.readFileSync(sitemapFile,'utf8').replace(/<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/g,'<lastmod>2026-09-13</lastmod>');
 const entries=slugs.filter(slug=>!sitemap.includes(`/shop/category/${slug}</loc>`)).map(slug=>`  <url>
     <loc>https://www.scotiameds.co.uk/shop/category/${slug}</loc>
-    <lastmod>2026-09-07</lastmod>
+    <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`).join('\n');

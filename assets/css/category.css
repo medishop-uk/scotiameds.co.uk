@@ -6,3 +6,6 @@
 @media(max-width:1050px){.category-product-grid{grid-template-columns:1fr}.category-product-card{min-height:220px}}
 @media(max-width:760px){.category-hero .page-container{padding:38px 0 46px}.category-hero h1{font-size:38px!important}.category-layout{display:block}.category-sidebar{position:static;margin-bottom:32px}.category-sidebar select{display:block}.category-sidebar nav{display:none}.category-results-head{align-items:start}.category-product-card{grid-template-columns:105px minmax(0,1fr)}.category-product-image{padding:14px}.category-product-body{padding:18px 16px}.category-reading .article-content{padding:28px 22px}.category-product-footer{align-items:start;flex-direction:column}.category-product-footer .page-cta{width:100%}}
 @media(max-width:430px){.category-product-card{grid-template-columns:1fr}.category-product-image{min-height:150px}.category-product-image img{width:76px}}
+
+/* Image-first medicine cards: retain the whole package in a full-width panel. */
+.category-product-card{display:flex;flex-direction:column;min-height:0}.category-product-image{position:relative;display:block;aspect-ratio:1/1;min-height:0;padding:0;background:#fff;border-bottom:1px solid var(--line)}.category-product-image img{position:absolute;inset:12px;width:calc(100% - 24px);height:calc(100% - 24px);object-fit:contain}.category-product-body{flex:1}

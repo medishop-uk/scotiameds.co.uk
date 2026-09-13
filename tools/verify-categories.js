@@ -38,6 +38,8 @@ async function request(path,redirect='follow'){
   if(!productLegacy||productLegacy.status!==301||!productLegacy.headers.get('location')?.includes('/scotiameds.co.uk/shop/medicine/diazepam-sedil-5mg'))failures.push('Existing product redirect is not local/deployment portable');
   const sitemap=fs.readFileSync('sitemap.xml','utf8');
   for(const slug of slugs)if(!sitemap.includes(`<loc>https://www.scotiameds.co.uk/shop/category/${slug}</loc>`))failures.push(`sitemap missing ${slug}`);
+  for(const old of ['shop/category/adhd-%26-wakefulness','shop/zopiclone-7-5mg','shop/temazepam','shop/nervasin-pregabalin','best-online-drugstore-in-scotland']){const r=await request(old);if(!r||r.status!==200||!r.url.startsWith(base))failures.push('Legacy route failed: '+old)}
+  const localMap=await(await request('sitemap.xml')).text();if(localMap.includes('https://www.scotiameds.co.uk')||!localMap.includes(base+'shop/category/'))failures.push('Sitemap does not use local base');
   console.log(JSON.stringify({categoryRoutes:slugs.length,passed:failures.length===0,failures},null,2));
   process.exitCode=failures.length?1:0;
 })().catch(error=>{console.error(error);process.exitCode=1});

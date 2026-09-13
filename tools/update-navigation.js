@@ -19,7 +19,7 @@ function dropdown(prefix) {
 function updatePagesJs() {
   const file=path.join(root,'assets','js','pages.js');
   let js=fs.readFileSync(file,'utf8');
-  const replacement=`function header(){const active=x=>(kind.startsWith(x)||(kind==='product'&&x==='shop'))?' class="active"':'';return \`<a class="page-skip" href="#page-content">Skip to content</a><div class="page-notice"><div class="page-container"><p>Private UK-wide delivery</p><p>Prescription medicines require a valid prescription · <a href="\${root}/#how-it-works">How requests work</a></p></div></div><header class="page-header"><div class="page-container page-header-inner"><a class="page-brand" href="\${root}/"><img src="\${root}/assets/img/logo.svg" alt="ScotiaMeds"></a><nav class="page-nav">${dropdown('${root}/')}<a\${active('shop')} href="\${root}/shop/">Shop</a><a\${active('blog')} href="\${root}/blog/">Blog</a><a\${active('about')} href="\${root}/about-us/">About Us</a><a href="\${root}/#contact">Contact Us</a></nav><div class="page-actions"><a class="page-cta" href="\${whatsapp}" target="_blank" rel="noopener">Contact on WhatsApp</a><button class="page-menu" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button></div></div><nav class="page-mobile-nav"><a href="\${root}/#categories">All Categories</a><a href="\${root}/shop/">Shop</a><a href="\${root}/blog/">Blog</a><a href="\${root}/about-us/">About Us</a><a href="\${root}/#contact">Contact Us</a></nav></header>\`}`;
+  const replacement=`function header(){const active=x=>(kind.startsWith(x)||(kind==='product'&&x==='shop'))?' class="active"':'';return \`<a class="page-skip" href="#page-content">Skip to content</a><div class="page-notice"><div class="page-container"><p>Private UK-wide delivery</p><p>Prescription medicines require a valid prescription · <a href="\${root}/#how-it-works">How requests work</a></p></div></div><header class="page-header"><div class="page-container page-header-inner"><a class="page-brand" href="\${root}/"><img src="\${root}/assets/img/logo.svg" alt="ScotiaMeds"></a><nav class="page-nav">${dropdown('${root}/')}<a href="\${root}/">Home</a><a\${active('shop')} href="\${root}/shop/">Shop</a><a\${active('blog')} href="\${root}/blog/">Blog</a><a\${active('about')} href="\${root}/about-us/">About Us</a><a\${active('contact')} href="\${root}/contact-us/">Contact Us</a></nav><div class="page-actions"><a class="page-cta" href="\${whatsapp}" target="_blank" rel="noopener">Contact on WhatsApp</a><button class="page-menu" aria-label="Open menu" aria-expanded="false"><i></i><i></i><i></i></button></div></div><nav class="page-mobile-nav">${dropdown('${root}/')}<a href="\${root}/">Home</a><a href="\${root}/shop/">Shop</a><a href="\${root}/blog/">Blog</a><a href="\${root}/about-us/">About Us</a><a href="\${root}/contact-us/">Contact Us</a></nav></header>\`}`;
   if(!/function header\(\)\{[\s\S]*?\nfunction footer/.test(js))throw new Error('pages.js header not found');
   js=js.replace(/function header\(\)\{[\s\S]*?\nfunction footer/,replacement+'\nfunction footer');
   fs.writeFileSync(file,js,'utf8');
@@ -28,10 +28,10 @@ function updatePagesJs() {
 function updateHomepage() {
   const file=path.join(root,'index.html');
   let html=fs.readFileSync(file,'utf8');
-  const desktop=`<nav class='desktop-nav'>${dropdown('').replaceAll('"',"'")}<a href='shop/'>Shop</a><a href='blog/'>Blog</a><a href='about-us/'>About Us</a><a href='#contact'>Contact Us</a></nav>`;
+  const desktop=`<nav class='desktop-nav'>${dropdown('').replaceAll('"',"'")}<a href='./' aria-current='page'>Home</a><a href='shop/'>Shop</a><a href='blog/'>Blog</a><a href='about-us/'>About Us</a><a href='contact-us/'>Contact Us</a></nav>`;
   html=html.replace(/<nav class='desktop-nav'>[\s\S]*?<\/nav>/,desktop);
   html=html.replace(/<div class='header-actions'>[\s\S]*?<button class='menu-button'/,`<div class='header-actions'><button class='basket-button' data-cart-open>Basket <b data-cart-count>0</b></button><button class='menu-button'`);
-  html=html.replace(/<nav class='mobile-nav'>[\s\S]*?<\/nav>/,`<nav class='mobile-nav'><a href='#categories'>All Categories</a><a href='shop/'>Shop</a><a href='blog/'>Blog</a><a href='about-us/'>About Us</a><a href='#contact'>Contact Us</a></nav>`);
+  html=html.replace(/<nav class='mobile-nav'>[\s\S]*?<\/nav>/,`<nav class='mobile-nav'>${dropdown('')}<a href='./' aria-current='page'>Home</a><a href='shop/'>Shop</a><a href='blog/'>Blog</a><a href='about-us/'>About Us</a><a href='contact-us/'>Contact Us</a></nav>`);
   fs.writeFileSync(file,html,'utf8');
 }
 
@@ -58,7 +58,7 @@ function updateProgressiveNavigation() {
     const rel=path.relative(root,file).replace(/\\/g,'/');
     const depth=rel.split('/').length-1;
     const prefix='../'.repeat(depth);
-    const nav=`<nav data-source-navigation aria-label="Primary navigation"><details><summary>All Categories</summary>${categories.map(x=>`<a href="${prefix}shop/category/${x[3]}">${x[0]}</a>`).join('')}</details><a href="${prefix}shop/">Shop</a> <a href="${prefix}blog/">Blog</a> <a href="${prefix}about-us/">About Us</a> <a href="${prefix}#contact">Contact Us</a></nav>`;
+    const nav=`<nav data-source-navigation aria-label="Primary navigation"><details><summary>All Categories</summary>${categories.map(x=>`<a href="${prefix}shop/category/${x[3]}">${x[0]}</a>`).join('')}</details><a href="${prefix || './'}">Home</a><a href="${prefix}shop/">Shop</a> <a href="${prefix}blog/">Blog</a> <a href="${prefix}about-us/">About Us</a> <a href="${prefix}contact-us/">Contact Us</a></nav>`;
     html=html.replace(/<nav data-source-navigation[\s\S]*?<\/nav>/,nav);
     fs.writeFileSync(file,html,'utf8');
   }
