@@ -3,17 +3,7 @@
 var whatsapp='https://wa.me/447438135064';
 var telegram='https://t.me/BenzoAddy';
 var REVIEW_API_URL=window.SCOTIAMEDS_DATA_API||'';
-var productImages={
-'alprazolam-alprax-2mg':'alprax-xr2.jpg',
-'bromazepam':'broze.jpg',
-'co-codamol':'co-codamol.jpg',
-'lorazepam-ativan-2mg':'lorazepam.jpg',
-'nitrazepam-noctin-5mg':'noctin.jpg',
-'clonazepam-rivotril-2mg':'rivotril-2.jpg',
-'diazepam-sedil-5mg':'sedil.jpg',
-'diazepam-martin-dow-10mg':'valium.jpg',
-'zopiclone-7-5mg':'zopiclone-tablets.jpg'
-};
+var productImages={};
 var catalog={
 'alprazolam-alprax-2mg':['Alprax Alprazolam 2mg','Alprax','Torrent Pharmaceuticals','Anxiety & panic',20],
 'alprazolam-alprax-1mg':['Alprazolam Alprax 1mg','Alprax','Torrent Pharmaceuticals','Anxiety & panic',20],
